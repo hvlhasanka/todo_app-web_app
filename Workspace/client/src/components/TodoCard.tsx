@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Pencil, Trash2, X } from 'lucide-react';
-import type { Todo } from '../data/mockTodos';
+import type { Todo } from '../types';
 
 interface TodoCardProps {
   todo: Todo;

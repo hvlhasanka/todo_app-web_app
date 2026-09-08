@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import { mockTodos, type Todo } from './data/mockTodos';
+import type { Todo } from './types';
 import { Banner } from './components/Banner';
 import { TodoList } from './components/TodoList';
 import { TodoInput } from './components/TodoInput';
 
 export default function App() {
-  const [todos, setTodos] = useState<Todo[]>(mockTodos);
+  const [todos, setTodos] = useState<Todo[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
 

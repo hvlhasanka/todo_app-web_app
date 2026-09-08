@@ -1,4 +1,4 @@
-import type { Todo } from '../data/mockTodos';
+import type { Todo } from '../types';
 import { TodoCard } from './TodoCard';
 
 interface TodoListProps {
