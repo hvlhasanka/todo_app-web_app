@@ -25,7 +25,7 @@ export const updateTodo = async (
   return await Todo.findByIdAndUpdate(
     id,
     { title: data.title, description: data.description },
-    { new: true, runValidators: true },
+    { returnDocument: "after", runValidators: true },
   );
 };
 
