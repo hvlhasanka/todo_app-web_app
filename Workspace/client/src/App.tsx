@@ -21,7 +21,7 @@ export default function App() {
       queryClient.invalidateQueries({ queryKey: ['todos'] });
       setSuccess('New todo added successfully!');
     },
-    onError: () => setError('Failed to create todo. Please try again.'),
+    onError: () => setError('Failed to create todo. Please try again later.'),
   });
 
   const updateMutation = useMutation({
@@ -31,13 +31,13 @@ export default function App() {
       queryClient.invalidateQueries({ queryKey: ['todos'] });
       setSuccess('TODO updated successfully!');
     },
-    onError: () => setError('Failed to update todo. Please try again.'),
+    onError: () => setError('Failed to update todo. Please try again later.'),
   });
 
   const toggleMutation = useMutation({
     mutationFn: toggleTodoApi,
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ['todos'] }),
-    onError: () => setError('Failed to toggle todo. Please try again.'),
+    onError: () => setError('Failed to toggle todo. Please try again later.'),
   });
 
   const deleteMutation = useMutation({
@@ -46,7 +46,7 @@ export default function App() {
       queryClient.invalidateQueries({ queryKey: ['todos'] });
       setSuccess('TODO deleted successfully!');
     },
-    onError: () => setError('Failed to delete todo. Please try again.'),
+    onError: () => setError('Failed to delete todo. Please try again later.'),
   });
 
   const remainingCount = todos.filter((t) => !t.done).length;
