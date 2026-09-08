@@ -4,28 +4,34 @@ import type { Todo } from '../types';
 
 interface TodoCardProps {
   todo: Todo;
-  onToggle: (id: number) => void;
-  onDelete: (id: number) => void;
-  onSaveEdit: (id: number, newText: string, newDescription?: string) => void;
+  onToggle: (id: string) => void;
+  onDelete: (id: string) => void;
+  onSaveEdit: (id: string, newTitle: string, newDescription?: string) => void;
 }
 
 export function TodoCard({ todo, onToggle, onDelete, onSaveEdit }: TodoCardProps) {
   const [isEditing, setIsEditing] = useState(false);
-  const [editText, setEditText] = useState(todo.text);
+  const [editTitle, setEditTitle] = useState(todo.title);
   const [editDescription, setEditDescription] = useState(todo.description || '');
 
   const handleStartEdit = () => {
     setIsEditing(true);
-    setEditText(todo.text);
+    setEditTitle(todo.title);
     setEditDescription(todo.description || '');
   };
 
   const handleSave = () => {
-    onSaveEdit(todo.id, editText, editDescription);
+    onSaveEdit(todo._id, editTitle, editDescription);
     setIsEditing(false);
   };
 
   const handleCancelEdit = () => {
+    const hasChanges = editTitle !== todo.title || editDescription !== (todo.description || '');
+    if (hasChanges) {
+      if (!window.confirm('Changes will be discarded, do you wish to continue?')) {
+        return;
+      }
+    }
     setIsEditing(false);
   };
 
@@ -34,8 +40,8 @@ export function TodoCard({ todo, onToggle, onDelete, onSaveEdit }: TodoCardProps
       <div className="flex items-center flex-1">
         <input
           type="checkbox"
-          checked={todo.completed}
-          onChange={() => onToggle(todo.id)}
+          checked={todo.done}
+          onChange={() => onToggle(todo._id)}
           className="w-5 h-5 accent-gray-500 cursor-pointer rounded-sm"
         />
         {isEditing ? (
@@ -43,8 +49,8 @@ export function TodoCard({ todo, onToggle, onDelete, onSaveEdit }: TodoCardProps
             <input
               type="text"
               className="border-b border-gray-300 text-sm focus:outline-none text-gray-700 w-full"
-              value={editText}
-              onChange={(e) => setEditText(e.target.value)}
+              value={editTitle}
+              onChange={(e) => setEditTitle(e.target.value)}
             />
             <input
               type="text"
@@ -57,15 +63,15 @@ export function TodoCard({ todo, onToggle, onDelete, onSaveEdit }: TodoCardProps
           <div className="ml-4 flex flex-col flex-1">
             <span
               className={`text-sm font-medium ${
-                todo.completed ? 'line-through text-gray-300' : 'text-gray-600'
+                todo.done ? 'line-through text-gray-300' : 'text-gray-600'
               }`}
             >
-              {todo.text}
+              {todo.title}
             </span>
             {todo.description && (
               <span
                 className={`text-xs mt-0.5 ${
-                  todo.completed ? 'line-through text-gray-200' : 'text-gray-400'
+                  todo.done ? 'line-through text-gray-200' : 'text-gray-400'
                 }`}
               >
                 {todo.description}
@@ -101,7 +107,7 @@ export function TodoCard({ todo, onToggle, onDelete, onSaveEdit }: TodoCardProps
           </button>
         )}
         <button
-          onClick={() => onDelete(todo.id)}
+          onClick={() => onDelete(todo._id)}
           className="text-gray-400 hover:text-red-500 px-2 transition-colors flex items-center justify-center cursor-pointer"
         >
           <Trash2 size={18} />
