@@ -17,7 +17,7 @@ app.use(express.json());
 app.use(globalLimiter);
 
 // Health check route
-app.get("/", (req: Request, res: Response) => {
+app.get("/health-check", (req: Request, res: Response) => {
   res.send("TODO Web App - Server Live");
 });
 

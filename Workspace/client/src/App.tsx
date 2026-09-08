@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { getTodos, createTodo } from './services/api/todoApi';
+import { getTodos, createTodo, updateTodo as updateTodoApi, toggleTodo as toggleTodoApi, deleteTodo as deleteTodoApi } from './services/api/todoApi';
 import { Banner } from './components/Banner';
 import { TodoList } from './components/TodoList';
 import { TodoInput } from './components/TodoInput';
@@ -19,16 +19,45 @@ export default function App() {
     mutationFn: createTodo,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['todos'] });
-      setSuccess('New TODO added successfully!');
+      setSuccess('New todo added successfully!');
     },
-    onError: () => {
-      setError('Failed to create TODO. Please try again later.');
+    onError: () => setError('Failed to create todo. Please try again.'),
+  });
+
+  const updateMutation = useMutation({
+    mutationFn: ({ id, title, description }: { id: string; title: string; description?: string }) => 
+      updateTodoApi(id, { title, description }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['todos'] });
+      setSuccess('TODO updated successfully!');
     },
+    onError: () => setError('Failed to update todo. Please try again.'),
+  });
+
+  const toggleMutation = useMutation({
+    mutationFn: toggleTodoApi,
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['todos'] }),
+    onError: () => setError('Failed to toggle todo. Please try again.'),
+  });
+
+  const deleteMutation = useMutation({
+    mutationFn: deleteTodoApi,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['todos'] });
+      setSuccess('TODO deleted successfully!');
+    },
+    onError: () => setError('Failed to delete todo. Please try again.'),
   });
 
   const remainingCount = todos.filter((t) => !t.done).length;
 
-  const handleSaveEdit = (id: string, newTitle: string, newDescription?: string) => {};
+  const handleSaveEdit = (id: string, newTitle: string, newDescription?: string) => {
+    if (!newTitle.trim()) {
+      setError('TODO title cannot be empty.');
+      return;
+    }
+    updateMutation.mutate({ id, title: newTitle, description: newDescription });
+  };
 
   const handleError = (message: string) => {
     setError(message);
@@ -40,9 +69,15 @@ export default function App() {
     createMutation.mutate({ title, description });
   };
 
-  const toggleTodo = (id: string) => {};
+  const toggleTodo = (id: string) => {
+    toggleMutation.mutate(id);
+  };
 
-  const deleteTodo = (id: string) => {};
+  const deleteTodo = (id: string) => {
+    if (window.confirm('Are you sure you want to delete this todo?')) {
+      deleteMutation.mutate(id);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-[#f5f5f5] flex items-center justify-center p-4 font-sans relative">

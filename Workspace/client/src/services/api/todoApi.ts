@@ -20,3 +20,28 @@ export const createTodo = async (todo: { title: string; description?: string }):
   if (!res.ok) throw new Error('Failed to create todo');
   return res.json();
 };
+
+export const updateTodo = async (id: string, updates: { title: string; description?: string }): Promise<Todo> => {
+  const res = await fetch(`${API_URL}/${id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(updates),
+  });
+  if (!res.ok) throw new Error('Failed to update todo');
+  return res.json();
+};
+
+export const toggleTodo = async (id: string): Promise<Todo> => {
+  const res = await fetch(`${API_URL}/${id}/done`, {
+    method: 'PATCH',
+  });
+  if (!res.ok) throw new Error('Failed to toggle todo');
+  return res.json();
+};
+
+export const deleteTodo = async (id: string): Promise<void> => {
+  const res = await fetch(`${API_URL}/${id}`, {
+    method: 'DELETE',
+  });
+  if (!res.ok) throw new Error('Failed to delete todo');
+};
