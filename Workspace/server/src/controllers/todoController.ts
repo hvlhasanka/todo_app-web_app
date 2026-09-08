@@ -13,12 +13,10 @@ export const getTodos = async (req: Request, res: Response) => {
 
 export const createTodo = async (req: Request, res: Response) => {
   try {
-    const { title, description } = req.body;
+    const { title, description = "" } = req.body;
 
-    if (!title || !description) {
-      return res
-        .status(400)
-        .json({ error: "Title and description are required" });
+    if (!title) {
+      return res.status(400).json({ error: "Title are required" });
     }
 
     const newTodo = await todoData.createTodo({ title, description });
