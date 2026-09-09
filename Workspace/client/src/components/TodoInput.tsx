@@ -18,19 +18,23 @@ export function TodoInput({ onAdd, onError, isLoading }: TodoInputProps) {
   });
 
   const onSubmit = (data: FormData) => {
-    if (!data.text.trim()) {
-      onError('TODO title cannot be empty.');
-      return;
-    }
     onAdd(data.text, data.description);
     reset();
   };
 
+  const onInvalid = (errors: any) => {
+    if (errors.text?.message) {
+      onError(errors.text.message);
+    }
+  };
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col sm:flex-row items-end mb-3 gap-4">
+    <form onSubmit={handleSubmit(onSubmit, onInvalid)} className="flex flex-col sm:flex-row items-end mb-3 gap-4">
       <div className="flex-1 w-full border-b border-gray-300 pb-2">
         <input
-          {...register('text')}
+          {...register('text', {
+            validate: (value) => value.trim().length > 0 || 'TODO title cannot be empty.'
+          })}
           type="text"
           placeholder="Title"
           disabled={isLoading}
