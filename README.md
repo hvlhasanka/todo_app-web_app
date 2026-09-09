@@ -18,7 +18,7 @@ With full functionality across creating, editing, completing, and deleting TODOs
 
 <p align="center">
   <kbd>
-    <img src="./Documentation/todo-web-app_system-architecture.png" width="50%" />
+    <img src="./Documentation/todo-web-app_system-architecture.png" />
   </kbd>
 </p>
 <p align="center">Figure 2.1: System Architecture Diagram</p>
@@ -111,7 +111,7 @@ npm run dev    # http://localhost:5173
 
 <p align="center">
   <kbd>
-    <img src="./Documentation/todo-web-app_client-source-code.png" width="50%" />
+    <img src="./Documentation/todo-web-app_client-source-code.png" />
   </kbd>
 </p>
 <p align="center">Figure 5.1.1: Client Source Code Structure</p>
@@ -129,7 +129,7 @@ The `src` directory contains the core frontend application code, structured as f
 
 <p align="center">
   <kbd>
-    <img src="./Documentation/todo-web-app_server-source-code.png" width="50%" />
+    <img src="./Documentation/todo-web-app_server-source-code.png" />
   </kbd>
 </p>
 <p align="center">Figure 5.2.1: Server Source Code Structure</p>
