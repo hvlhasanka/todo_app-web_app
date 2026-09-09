@@ -1,6 +1,6 @@
 # TODO Web App
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/3e589513-9909-4086-a2eb-489264ad8fd0/deploy-status)](https://app.netlify.com/projects/lucaslhh-todo-web-app/deploys)</br>
+[![Netlify Status](https://api.netlify.com/api/v1/badges/3e589513-9909-4086-a2eb-489264ad8fd0/deploy-status)](https://app.netlify.com/projects/lucaslhh-todo-web-app/deploys)https://lucaslhh-todo-web-app.netlify.app</br>
 ![Render](https://img.shields.io/badge/API-Render-4EA674?logo=render&logoColor=white)
 https://todo-app-web-app.onrender.com</br>
 ![MongoDB Atlas](https://img.shields.io/badge/MongoDB-Atlas-47A248?logo=mongodb&logoColor=white)</br>
