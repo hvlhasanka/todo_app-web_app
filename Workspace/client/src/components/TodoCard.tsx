@@ -1,7 +1,7 @@
-import { useState } from 'react';
-import { Pencil, Trash2, X } from 'lucide-react';
-import { useForm } from 'react-hook-form';
-import type { Todo } from '../types';
+import { useState } from "react";
+import { Pencil, Trash2, X } from "lucide-react";
+import { useForm } from "react-hook-form";
+import type { Todo } from "../types";
 
 interface TodoCardProps {
   todo: Todo;
@@ -16,18 +16,29 @@ interface EditFormData {
   description: string;
 }
 
-export function TodoCard({ todo, onToggle, onDelete, onSaveEdit, onError }: TodoCardProps) {
+export function TodoCard({
+  todo,
+  onToggle,
+  onDelete,
+  onSaveEdit,
+  onError,
+}: TodoCardProps) {
   const [isEditing, setIsEditing] = useState(false);
-  
-  const { register, handleSubmit, reset, formState: { isDirty } } = useForm<EditFormData>({
-    defaultValues: { 
-      title: todo.title, 
-      description: todo.description || '' 
-    }
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { isDirty },
+  } = useForm<EditFormData>({
+    defaultValues: {
+      title: todo.title,
+      description: todo.description || "",
+    },
   });
 
   const handleStartEdit = () => {
-    reset({ title: todo.title, description: todo.description || '' });
+    reset({ title: todo.title, description: todo.description || "" });
     setIsEditing(true);
   };
 
@@ -44,7 +55,9 @@ export function TodoCard({ todo, onToggle, onDelete, onSaveEdit, onError }: Todo
 
   const handleCancelEdit = () => {
     if (isDirty) {
-      if (!window.confirm('Changes will be discarded, do you wish to continue?')) {
+      if (
+        !window.confirm("Changes will be discarded, do you wish to continue?")
+      ) {
         return;
       }
     }
@@ -62,17 +75,22 @@ export function TodoCard({ todo, onToggle, onDelete, onSaveEdit, onError }: Todo
           className="w-5 h-5 accent-gray-500 cursor-pointer rounded-sm"
         />
         {isEditing ? (
-          <form id={`edit-form-${todo._id}`} onSubmit={handleSubmit(onSubmit, onInvalid)} className="ml-4 flex flex-col flex-1 mr-4 gap-2">
+          <form
+            id={`edit-form-${todo._id}`}
+            onSubmit={handleSubmit(onSubmit, onInvalid)}
+            className="ml-4 flex flex-col flex-1 mr-4 gap-2"
+          >
             <input
               type="text"
-              {...register('title', {
-                validate: (value) => value.trim().length > 0 || 'TODO title cannot be empty.'
+              {...register("title", {
+                validate: (value) =>
+                  value.trim().length > 0 || "TODO title cannot be empty.",
               })}
               className="border-b border-gray-300 text-sm focus:outline-none text-gray-700 w-full"
             />
             <input
               type="text"
-              {...register('description')}
+              {...register("description")}
               className="border-b border-gray-300 text-xs focus:outline-none text-gray-500 w-full"
             />
           </form>
@@ -80,7 +98,7 @@ export function TodoCard({ todo, onToggle, onDelete, onSaveEdit, onError }: Todo
           <div className="ml-4 flex flex-col flex-1">
             <span
               className={`text-sm font-medium ${
-                todo.done ? 'line-through text-gray-300' : 'text-gray-600'
+                todo.done ? "line-through text-gray-300" : "text-gray-600"
               }`}
             >
               {todo.title}
@@ -88,7 +106,7 @@ export function TodoCard({ todo, onToggle, onDelete, onSaveEdit, onError }: Todo
             {todo.description && (
               <span
                 className={`text-xs mt-0.5 ${
-                  todo.done ? 'line-through text-gray-200' : 'text-gray-400'
+                  todo.done ? "line-through text-gray-200" : "text-gray-400"
                 }`}
               >
                 {todo.description}

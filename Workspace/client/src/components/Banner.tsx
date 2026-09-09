@@ -1,7 +1,7 @@
-import { X, Check } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { X, Check } from "lucide-react";
+import { useEffect, useState } from "react";
 
-export type BannerVariant = 'error' | 'success';
+export type BannerVariant = "error" | "success";
 
 interface BannerProps {
   message: string | null;
@@ -29,7 +29,7 @@ export function Banner({ message, variant, onClose }: BannerProps) {
 
   useEffect(() => {
     if (!message) return;
-    
+
     const timer = setTimeout(() => {
       onClose();
     }, 5000);
@@ -39,16 +39,23 @@ export function Banner({ message, variant, onClose }: BannerProps) {
 
   if (!visibleMessage) return null;
 
-  const isError = variant === 'error';
-  const bgColor = isError ? 'bg-[#ff4d4f]' : 'bg-[#52c41a]';
-  const textColor = isError ? 'text-[#ff4d4f]' : 'text-[#52c41a]';
-  const icon = isError ? '!' : <Check strokeWidth={3} size={18} />;
+  const isError = variant === "error";
+  const bgColor = isError ? "bg-[#ff4d4f]" : "bg-[#52c41a]";
+  const textColor = isError ? "text-[#ff4d4f]" : "text-[#52c41a]";
+  const icon = isError ? "!" : <Check strokeWidth={3} size={18} />;
 
   return (
-    <div className={`fixed top-4 left-4 right-4 z-50 ${isClosing ? 'animate-slide-up' : 'animate-slide-down'}`} role="alert">
-      <div className={`${bgColor} text-white px-6 py-4 shadow-xl flex items-center justify-center rounded-xl relative`}>
+    <div
+      className={`fixed top-4 left-4 right-4 z-50 ${isClosing ? "animate-slide-up" : "animate-slide-down"}`}
+      role="alert"
+    >
+      <div
+        className={`${bgColor} text-white px-6 py-4 shadow-xl flex items-center justify-center rounded-xl relative`}
+      >
         <div className="flex items-center gap-4">
-          <div className={`bg-white w-7 h-7 rounded-full flex items-center justify-center font-bold ${textColor} text-lg`}>
+          <div
+            className={`bg-white w-7 h-7 rounded-full flex items-center justify-center font-bold ${textColor} text-lg`}
+          >
             {icon}
           </div>
           <span className="font-semibold text-lg">{message}</span>

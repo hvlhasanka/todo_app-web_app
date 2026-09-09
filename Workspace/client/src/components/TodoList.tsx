@@ -1,5 +1,5 @@
-import type { Todo } from '../types';
-import { TodoCard } from './TodoCard';
+import type { Todo } from "../types";
+import { TodoCard } from "./TodoCard";
 
 interface TodoListProps {
   todos: Todo[];
@@ -10,12 +10,22 @@ interface TodoListProps {
   onError: (message: string) => void;
 }
 
-export function TodoList({ todos, isLoading, onToggle, onDelete, onSaveEdit, onError }: TodoListProps) {
+export function TodoList({
+  todos,
+  isLoading,
+  onToggle,
+  onDelete,
+  onSaveEdit,
+  onError,
+}: TodoListProps) {
   if (isLoading) {
     return (
       <div className="space-y-3">
         {[...Array(3)].map((_, i) => (
-          <div key={i} className="flex items-center justify-between p-4 border border-gray-200 rounded-xl bg-white animate-pulse">
+          <div
+            key={i}
+            className="flex items-center justify-between p-4 border border-gray-200 rounded-xl bg-white animate-pulse"
+          >
             <div className="flex items-center flex-1">
               <div className="w-5 h-5 bg-gray-200 rounded-sm"></div>
               <div className="ml-4 flex flex-col flex-1 gap-1">
@@ -56,4 +66,3 @@ export function TodoList({ todos, isLoading, onToggle, onDelete, onSaveEdit, onE
     </div>
   );
 }
-
