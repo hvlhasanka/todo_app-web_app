@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import type { Todo } from '../types';
 import { TodoCard } from './TodoCard';
 
@@ -11,27 +10,7 @@ interface TodoListProps {
 }
 
 export function TodoList({ todos, isLoading, onToggle, onDelete, onSaveEdit }: TodoListProps) {
-  const [showSkeleton, setShowSkeleton] = useState(true);
-  const [startTime] = useState(Date.now());
-
-  useEffect(() => {
-    let timeoutId: number;
-    
-    if (!isLoading) {
-      const elapsed = Date.now() - startTime;
-      if (elapsed < 1200) {
-        timeoutId = window.setTimeout(() => setShowSkeleton(false), 1200 - elapsed);
-      } else {
-        setShowSkeleton(false);
-      }
-    } else {
-      setShowSkeleton(true);
-    }
-
-    return () => window.clearTimeout(timeoutId);
-  }, [isLoading, startTime]);
-
-  if (showSkeleton) {
+  if (isLoading) {
     return (
       <div className="space-y-3">
         {[...Array(3)].map((_, i) => (

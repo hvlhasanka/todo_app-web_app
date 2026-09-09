@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { getTodos, createTodo, updateTodo as updateTodoApi, toggleTodo as toggleTodoApi, deleteTodo as deleteTodoApi } from './services/api/todoApi';
 import { Banner } from './components/Banner';
@@ -9,11 +9,30 @@ export default function App() {
   const queryClient = useQueryClient();
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
+  const [showSkeleton, setShowSkeleton] = useState(true);
+  const [startTime] = useState(Date.now());
 
   const { data: todos = [], isLoading } = useQuery({
     queryKey: ['todos'],
     queryFn: getTodos,
   });
+
+  useEffect(() => {
+    let timeoutId: number;
+    
+    if (!isLoading) {
+      const elapsed = Date.now() - startTime;
+      if (elapsed < 1200) {
+        timeoutId = window.setTimeout(() => setShowSkeleton(false), 1200 - elapsed);
+      } else {
+        setShowSkeleton(false);
+      }
+    } else {
+      setShowSkeleton(true);
+    }
+
+    return () => window.clearTimeout(timeoutId);
+  }, [isLoading, startTime]);
 
   const createMutation = useMutation({
     mutationFn: createTodo,
@@ -49,7 +68,7 @@ export default function App() {
     onError: () => setError('Failed to delete todo. Please try again later.'),
   });
 
-  const remainingCount = isLoading ? 0 : todos.filter((t) => !t.done).length;
+  const remainingCount = showSkeleton ? 0 : todos.filter((t) => !t.done).length;
 
   const handleSaveEdit = (id: string, newTitle: string, newDescription?: string) => {
     if (!newTitle.trim()) {
@@ -95,7 +114,7 @@ export default function App() {
 
         <TodoList 
           todos={todos}
-          isLoading={isLoading}
+          isLoading={showSkeleton}
           onToggle={toggleTodo}
           onDelete={deleteTodo}
           onSaveEdit={handleSaveEdit}
