@@ -6,7 +6,7 @@ This is a Node.js Express backend created with TypeScript for the TODO Web App. 
 
 ## 2. Prerequisites
 
-- [Node.js](https://nodejs.org/) (v18 or higher recommended)
+- [Node.js](https://nodejs.org/) (v20 or higher recommended)
 - [Docker](https://www.docker.com/) (optional, for local MongoDB setup)
 
 ## 3. Installation

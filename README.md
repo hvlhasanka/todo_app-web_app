@@ -29,7 +29,7 @@ With full functionality across creating, editing, completing, and deleting TODOs
 
 ## 3. Installation
 
-Requires Node 18+.
+Requires Node 20+.
 
 ```bash
 git clone <repo>

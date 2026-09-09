@@ -6,7 +6,7 @@ This is the frontend portion of the TODO Web App. It is a React.js application c
 
 ## 2. Prerequisites
 
-- [Node.js](https://nodejs.org/) (v18 or higher recommended)
+- [Node.js](https://nodejs.org/) (v20 or higher recommended)
 
 ## 3. Installation
 
