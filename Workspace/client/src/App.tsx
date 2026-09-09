@@ -49,7 +49,7 @@ export default function App() {
     onError: () => setError('Failed to delete todo. Please try again later.'),
   });
 
-  const remainingCount = todos.filter((t) => !t.done).length;
+  const remainingCount = isLoading ? 0 : todos.filter((t) => !t.done).length;
 
   const handleSaveEdit = (id: string, newTitle: string, newDescription?: string) => {
     if (!newTitle.trim()) {

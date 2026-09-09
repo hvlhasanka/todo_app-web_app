@@ -19,8 +19,8 @@ export function TodoList({ todos, isLoading, onToggle, onDelete, onSaveEdit }: T
     
     if (!isLoading) {
       const elapsed = Date.now() - startTime;
-      if (elapsed < 600) {
-        timeoutId = window.setTimeout(() => setShowSkeleton(false), 600 - elapsed);
+      if (elapsed < 1200) {
+        timeoutId = window.setTimeout(() => setShowSkeleton(false), 1200 - elapsed);
       } else {
         setShowSkeleton(false);
       }
