@@ -15,10 +15,6 @@ export const createTodo = async (req: Request, res: Response) => {
   try {
     const { title, description = "" } = req.body;
 
-    if (!title) {
-      return res.status(400).json({ error: "Title are required" });
-    }
-
     const newTodo = await todoData.createTodo({ title, description });
     res.status(201).json(newTodo);
   } catch (error) {
