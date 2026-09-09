@@ -105,7 +105,47 @@ npm run dev    # http://localhost:5173
 - **Alerts** -
     - Animated slide-down banners alert the user to successful actions or errors.
 
-## 5. Potential Improvements
+## 5. Source Code Structure
+
+### 5.1. Frontend (Client) Source Code -
+
+<p align="center">
+  <kbd>
+    <img src="./Documentation/todo-web-app_client-source-code.png" width="50%" />
+  </kbd>
+</p>
+<p align="center">Figure 5.1.1: Client Source Code Structure</p>
+
+The `src` directory contains the core frontend application code, structured as follows:
+
+- **`main.tsx`**: The main entry point of the React application that renders `App.tsx` into the DOM.
+- **`App.tsx`**: The main React component that acts as the root of the application, managing layouts and rendering other components.
+- **`index.css`**: The global CSS file where Tailwind CSS directives and custom global styles are imported.
+- **`components/`**: Contains reusable React UI components that make up the different parts of the application.
+- **`services/`**: Contains API service functions for communicating with the backend server (for example, fetching, creating, updating, and deleting TODO items).
+- **`types/`**: Contains TypeScript type definitions and interfaces used throughout the application to ensure type safety.
+
+### 5.2. Backend (Server) Source Code -
+
+<p align="center">
+  <kbd>
+    <img src="./Documentation/todo-web-app_server-source-code.png" width="50%" />
+  </kbd>
+</p>
+<p align="center">Figure 5.2.1: Server Source Code Structure</p>
+
+The `src` directory contains the core application logic, structured as follows:
+
+- **`index.ts`**: The main entry point of the server that initializes the Express application, applies middlewares, and registers routes.
+- **`config/`**: Contains configuration files, such as the MongoDB connection setup.
+- **`schemas/`**: Contains Zod validation schemas used to validate the structure and types of incoming request payloads.
+- **`middlewares/`**: Contains custom Express middlewares, such as rate limiting, CORS configuration, and request data validation.
+- **`routes/`**: Contains Express route definitions mapping endpoints to their respective controllers.
+- **`controllers/`**: Contains the route handler functions that process incoming requests, interact with the database, and return responses.
+- **`data/`**: Contains the database interaction functions.
+- **`models/`**: Contains Mongoose schemas and models representing the database structure.
+
+## 6. Potential Improvements
 
 - **Authentication** -
     - The application currently doesn't have the ability to handle user accounts. But adding a JWT authentication will allow to handle multiple users to manage their own primary TODO lists.
@@ -116,10 +156,10 @@ npm run dev    # http://localhost:5173
 - **Test Coverage**-
     - Add unit tests, integration tests and E2E test (example with Playwright or Cypress) will ensure future enhancements won't break the system that was already working.
 
-## 6. Credits
+## 7. Credits
 
 - The UI was created based on the following image, [Clean & Minimal Todo List Design](https://dribbble.com/shots/24425951-Clean-Minimal-Todo-List-Design)
 
-## 7. License -
+## 8. License -
 Copyright (c) 2026 H.V.L.Hasanka<br>
 Licensed under [MIT License](LICENSE)
