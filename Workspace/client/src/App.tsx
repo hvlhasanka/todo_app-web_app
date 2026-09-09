@@ -71,10 +71,6 @@ export default function App() {
   const remainingCount = showSkeleton ? 0 : todos.filter((t) => !t.done).length;
 
   const handleSaveEdit = (id: string, newTitle: string, newDescription?: string) => {
-    if (!newTitle.trim()) {
-      setError('TODO title cannot be empty.');
-      return;
-    }
     updateMutation.mutate({ id, title: newTitle, description: newDescription });
   };
 
@@ -118,6 +114,7 @@ export default function App() {
           onToggle={toggleTodo}
           onDelete={deleteTodo}
           onSaveEdit={handleSaveEdit}
+          onError={handleError}
         />
       </div>
     </div>

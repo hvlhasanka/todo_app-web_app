@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Pencil, Trash2, X } from 'lucide-react';
+import { useForm } from 'react-hook-form';
 import type { Todo } from '../types';
 
 interface TodoCardProps {
@@ -7,32 +8,48 @@ interface TodoCardProps {
   onToggle: (id: string) => void;
   onDelete: (id: string) => void;
   onSaveEdit: (id: string, newTitle: string, newDescription?: string) => void;
+  onError: (message: string) => void;
 }
 
-export function TodoCard({ todo, onToggle, onDelete, onSaveEdit }: TodoCardProps) {
+interface EditFormData {
+  title: string;
+  description: string;
+}
+
+export function TodoCard({ todo, onToggle, onDelete, onSaveEdit, onError }: TodoCardProps) {
   const [isEditing, setIsEditing] = useState(false);
-  const [editTitle, setEditTitle] = useState(todo.title);
-  const [editDescription, setEditDescription] = useState(todo.description || '');
+  
+  const { register, handleSubmit, reset, formState: { isDirty } } = useForm<EditFormData>({
+    defaultValues: { 
+      title: todo.title, 
+      description: todo.description || '' 
+    }
+  });
 
   const handleStartEdit = () => {
+    reset({ title: todo.title, description: todo.description || '' });
     setIsEditing(true);
-    setEditTitle(todo.title);
-    setEditDescription(todo.description || '');
   };
 
-  const handleSave = () => {
-    onSaveEdit(todo._id, editTitle, editDescription);
+  const onSubmit = (data: EditFormData) => {
+    onSaveEdit(todo._id, data.title, data.description);
     setIsEditing(false);
   };
 
+  const onInvalid = (errors: any) => {
+    if (errors.title?.message) {
+      onError(errors.title.message);
+    }
+  };
+
   const handleCancelEdit = () => {
-    const hasChanges = editTitle !== todo.title || editDescription !== (todo.description || '');
-    if (hasChanges) {
+    if (isDirty) {
       if (!window.confirm('Changes will be discarded, do you wish to continue?')) {
         return;
       }
     }
     setIsEditing(false);
+    reset();
   };
 
   return (
@@ -45,20 +62,20 @@ export function TodoCard({ todo, onToggle, onDelete, onSaveEdit }: TodoCardProps
           className="w-5 h-5 accent-gray-500 cursor-pointer rounded-sm"
         />
         {isEditing ? (
-          <div className="ml-4 flex flex-col flex-1 mr-4 gap-2">
+          <form id={`edit-form-${todo._id}`} onSubmit={handleSubmit(onSubmit, onInvalid)} className="ml-4 flex flex-col flex-1 mr-4 gap-2">
             <input
               type="text"
+              {...register('title', {
+                validate: (value) => value.trim().length > 0 || 'TODO title cannot be empty.'
+              })}
               className="border-b border-gray-300 text-sm focus:outline-none text-gray-700 w-full"
-              value={editTitle}
-              onChange={(e) => setEditTitle(e.target.value)}
             />
             <input
               type="text"
+              {...register('description')}
               className="border-b border-gray-300 text-xs focus:outline-none text-gray-500 w-full"
-              value={editDescription}
-              onChange={(e) => setEditDescription(e.target.value)}
             />
-          </div>
+          </form>
         ) : (
           <div className="ml-4 flex flex-col flex-1">
             <span
@@ -85,12 +102,14 @@ export function TodoCard({ todo, onToggle, onDelete, onSaveEdit }: TodoCardProps
         {isEditing ? (
           <>
             <button
-              onClick={handleSave}
+              type="submit"
+              form={`edit-form-${todo._id}`}
               className="text-green-500 hover:text-green-600 px-2 transition-colors flex items-center justify-center font-semibold text-sm cursor-pointer"
             >
               Save
             </button>
             <button
+              type="button"
               onClick={handleCancelEdit}
               className="text-gray-400 hover:text-red-500 px-2 transition-colors flex items-center justify-center cursor-pointer"
               title="Cancel"

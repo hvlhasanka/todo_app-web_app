@@ -7,9 +7,10 @@ interface TodoListProps {
   onToggle: (_id: string) => void;
   onDelete: (_id: string) => void;
   onSaveEdit: (_id: string, newText: string, newDescription?: string) => void;
+  onError: (message: string) => void;
 }
 
-export function TodoList({ todos, isLoading, onToggle, onDelete, onSaveEdit }: TodoListProps) {
+export function TodoList({ todos, isLoading, onToggle, onDelete, onSaveEdit, onError }: TodoListProps) {
   if (isLoading) {
     return (
       <div className="space-y-3">
@@ -49,6 +50,7 @@ export function TodoList({ todos, isLoading, onToggle, onDelete, onSaveEdit }: T
           onToggle={onToggle}
           onDelete={onDelete}
           onSaveEdit={onSaveEdit}
+          onError={onError}
         />
       ))}
     </div>
