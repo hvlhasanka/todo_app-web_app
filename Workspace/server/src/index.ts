@@ -1,9 +1,9 @@
 import express, { Request, Response } from "express";
-import cors from "cors";
 import dotenv from "dotenv";
 import { connectDB } from "./config/db";
 import todoRoutes from "./routes/todoRoutes";
 import { globalLimiter } from "./middlewares/rateLimiter";
+import { corsMiddleware } from "./middlewares/corsConfig";
 
 dotenv.config();
 
@@ -12,13 +12,7 @@ const port = process.env.PORT || 3000;
 
 connectDB();
 
-const clientOrigin = process.env.CLIENT_ORIGIN || "http://localhost:5173";
-
-app.use(
-  cors({
-    origin: clientOrigin,
-  }),
-);
+app.use(corsMiddleware);
 app.use(express.json());
 app.use(globalLimiter);
 
