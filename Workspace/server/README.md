@@ -1,15 +1,15 @@
 # TODO Web App - Server
 
-## Description
+## 1. Description
 
 This is a Node.js Express backend created with TypeScript for the TODO Web App. It handles the RESTful API for managing TODOs and connects to a MongoDB database.
 
-## Prerequisites
+## 2. Prerequisites
 
 - [Node.js](https://nodejs.org/) (v18 or higher recommended)
 - [Docker](https://www.docker.com/) (optional, for local MongoDB setup)
 
-## Installation
+## 3. Installation
 
 Navigate to the `server` directory and install the dependencies:
 
@@ -50,7 +50,7 @@ Once the database is ready, you can start the API server:
 npm run dev
 ```
 
-## Available Scripts
+## 4. Available Scripts
 
 In the project directory, you can run:
 
@@ -69,7 +69,27 @@ Runs ESLint to check for code quality and syntax issues.
 ### `npm run format`
 Runs Prettier to automatically format your code according to the `.prettierrc` configuration.
 
-## API Documentation
+## 5. Source Code Structure
+
+<p align="center">
+  <kbd>
+    <img src="../../Documentation/todo-web-app_server-source-code.png" width="50%" />
+  </kbd>
+</p>
+<p align="center">Figure 5.1: Source Code Structure</p>
+
+The `src` directory contains the core application logic, structured as follows:
+
+- **`index.ts`**: The main entry point of the server that initializes the Express application, applies middlewares, and registers routes.
+- **`config/`**: Contains configuration files, such as the MongoDB connection setup.
+- **`schemas/`**: Contains Zod validation schemas used to validate the structure and types of incoming request payloads.
+- **`middlewares/`**: Contains custom Express middlewares, such as rate limiting, CORS configuration, and request data validation.
+- **`routes/`**: Contains Express route definitions mapping endpoints to their respective controllers.
+- **`controllers/`**: Contains the route handler functions that process incoming requests, interact with the database, and return responses.
+- **`data/`**: Contains the database interaction functions.
+- **`models/`**: Contains Mongoose schemas and models representing the database structure.
+
+## 6. API Documentation
 
 ### Base API Path
 `/api/todos`
