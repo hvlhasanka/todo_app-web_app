@@ -1,22 +1,22 @@
-name: CI
+name: Server CI
 
 on:
   push:
     branches: [ "**" ]
+    paths:
+      - 'Workspace/server/**'
   pull_request:
     branches: [ "**" ]
+    paths:
+      - 'Workspace/server/**'
 
 jobs:
-  build-and-format:
+  build-and-lint:
     runs-on: ubuntu-latest
     
-    strategy:
-      matrix:
-        project: [Workspace/client, Workspace/server]
-        
     defaults:
       run:
-        working-directory: ${{ matrix.project }}
+        working-directory: Workspace/server
 
     steps:
       - name: Checkout code
