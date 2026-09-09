@@ -105,7 +105,16 @@ npm run dev    # http://localhost:5173
 - **Alerts** -
     - Animated slide-down banners alert the user to successful actions or errors.
 
+<div align="center">
+  <video src="https://github.com/user-attachments/assets/81850842-0300-473b-9356-57265d7b2e9c" controls></video>
+</div>
+<p align="center">Figure 4.2.1: Demo Video</p>
+
 ## 5. Source Code Structure
+
+[![Walkthrough Video](https://github.com/user-attachments/assets/2ffa6205-c20c-44f1-8ec9-eafa490da6d0)](https://drive.google.com/file/d/1m89laq-zudbQn-_4MKz5YS9-Nxv6ycz3/view?usp=sharing)
+**Click above to direct to video**
+<p align="center">Figure 5.1: Walkthrough Video</p>
 
 ### 5.1. Frontend (Client) Source Code -
 
