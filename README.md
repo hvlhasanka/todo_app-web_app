@@ -1,5 +1,14 @@
 # TODO Web App
 
+<p align="center">
+  <kbd>
+    <img src="./Documentation/todo-web-app_main-user-interface.png" />
+  </kbd>
+</p>
+<p align="center">Figure 0.1: Main User Interface</p>
+
+<hr /></br>
+
 [![Netlify Status](https://api.netlify.com/api/v1/badges/3e589513-9909-4086-a2eb-489264ad8fd0/deploy-status)](https://app.netlify.com/projects/lucaslhh-todo-web-app/deploys)https://lucaslhh-todo-web-app.netlify.app</br>
 ![Render](https://img.shields.io/badge/API-Render-4EA674?logo=render&logoColor=white)
 https://todo-app-web-app.onrender.com</br>
