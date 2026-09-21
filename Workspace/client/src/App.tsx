@@ -10,6 +10,8 @@ import {
 import { Banner } from "./components/Banner";
 import { TodoList } from "./components/TodoList";
 import { TodoInput } from "./components/TodoInput";
+import Footer from "./components/footer/Footer";
+import FloatingBackground from "./components/FloatingBackground";
 
 export default function App() {
   const queryClient = useQueryClient();
@@ -115,37 +117,45 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f5f5f5] flex items-center justify-center p-4 font-sans relative">
-      <Banner message={error} variant="error" onClose={() => setError(null)} />
-      <Banner
-        message={success}
-        variant="success"
-        onClose={() => setSuccess(null)}
-      />
+    <div className="min-h-screen bg-neutral-300 flex flex-col font-sans relative overflow-hidden">
+      <FloatingBackground />
 
-      <div className="bg-white w-full max-w-2xl rounded-2xl shadow-sm p-8 sm:p-12">
-        <h1 className="text-3xl font-bold text-gray-700 mb-10 tracking-tight">
-          Your TODO List
-        </h1>
-
-        <TodoInput
-          onAdd={handleAddTodo}
-          onError={handleError}
-          isLoading={createMutation.isPending}
+      <div className="relative z-10 flex flex-col flex-1">
+        <Banner message={error} variant="error" onClose={() => setError(null)} />
+        <Banner
+          message={success}
+          variant="success"
+          onClose={() => setSuccess(null)}
         />
 
-        <p className="text-sm font-bold text-gray-700 mt-6 mb-2">
-          Your remaining todos: {remainingCount}
-        </p>
+        <main className="flex-1 flex items-center justify-center p-4">
+          <div className="bg-white w-full max-w-2xl rounded-2xl shadow-sm p-8 sm:p-12">
+            <h1 className="text-3xl font-bold text-gray-700 mb-10 tracking-tight">
+              Your TODO List
+            </h1>
 
-        <TodoList
-          todos={todos}
-          isLoading={showSkeleton}
-          onToggle={toggleTodo}
-          onDelete={deleteTodo}
-          onSaveEdit={handleSaveEdit}
-          onError={handleError}
-        />
+            <TodoInput
+              onAdd={handleAddTodo}
+              onError={handleError}
+              isLoading={createMutation.isPending}
+            />
+
+            <p className="text-sm font-bold text-gray-700 mt-6 mb-2">
+              Your remaining todos: {remainingCount}
+            </p>
+
+            <TodoList
+              todos={todos}
+              isLoading={showSkeleton}
+              onToggle={toggleTodo}
+              onDelete={deleteTodo}
+              onSaveEdit={handleSaveEdit}
+              onError={handleError}
+            />
+          </div>
+        </main>
+
+        <Footer />
       </div>
     </div>
   );
